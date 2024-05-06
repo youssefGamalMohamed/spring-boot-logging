@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: spring-boot-logging-app
+
+server:
+  port: 9090
