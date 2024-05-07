@@ -37,9 +37,9 @@
             <ConnectionFactory
                     class="org.youssef.gamal.springboot.logging.app.config.JdbcConfig"
                     method="getConnection" />
-            <Column name="ID" pattern="%u" />
+            <Column name="ID" pattern="%u" /> <!-- unique identifier as UUID -->
             <Column name="DATE_TIME" isEventTimestamp="true" />
-            <Column name="CLASS" pattern="%logger" />
+            <Column name="CLASS" pattern="%logger" /> <!-- full class name with the package -->
             <Column name="LEVEL" pattern="%level" />
             <Column name="MESSAGE" pattern="%message" />
             <Column name="EXCEPTION" pattern="%ex{full}" isClob="true"/>
