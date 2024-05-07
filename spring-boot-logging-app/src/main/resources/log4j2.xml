@@ -2,18 +2,30 @@
 <Configuration status="WARN">
     <Properties>
         <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%30.30t] %C{1}.%M(): %m%n%ex</Property>
+        <Property name="LOG_PATH">C:/Users/youssef.gamal/Downloads</Property>
     </Properties>
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT" follow="true">
+        <Console name="ConsoleLogger" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${LOG_PATTERN}" />
         </Console>
+        <RollingFile name="FileLogger"
+                     fileName="${LOG_PATH}/today_log.log"
+                     filePattern="${LOG_PATH}/%d{YYYY-MM}/log.%d{dd-MMM}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" /> <!-- if the file size exceed 19500KB then it will create new file -->
+                <TimeBasedTriggeringPolicy interval="1"/> <!-- creates every day a new folder -->
+            </Policies>
+        </RollingFile>
     </Appenders>
     <Loggers>
         <Logger name="org.youssef.gamal.springboot.logging.app" additivity="false">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="ConsoleLogger" />
+            <AppenderRef ref="FileLogger" />
         </Logger>
         <Root level="INFO">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="ConsoleLogger" />
+            <AppenderRef ref="FileLogger" />
         </Root>
     </Loggers>
 </Configuration>
