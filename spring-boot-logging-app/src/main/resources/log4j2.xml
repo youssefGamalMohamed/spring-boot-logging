@@ -30,15 +30,31 @@
                 <TimeBasedTriggeringPolicy interval="1"/> <!-- creates every day a new folder -->
             </Policies>
         </RollingFile>
+
+
+        <JDBC name="JDBCLogger" tableName="EVENT_LOGS">
+
+            <ConnectionFactory
+                    class="org.youssef.gamal.springboot.logging.app.config.JdbcConfig"
+                    method="getConnection" />
+            <Column name="ID" pattern="%u" />
+            <Column name="DATE_TIME" isEventTimestamp="true" />
+            <Column name="CLASS" pattern="%logger" />
+            <Column name="LEVEL" pattern="%level" />
+            <Column name="MESSAGE" pattern="%message" />
+            <Column name="EXCEPTION" pattern="%ex{full}" isClob="true"/>
+        </JDBC>
     </Appenders>
     <Loggers>
         <Logger name="org.youssef.gamal.springboot.logging.app" additivity="false">
             <AppenderRef ref="ConsoleLogger" />
             <AppenderRef ref="FileLogger" />
+            <AppenderRef ref="JDBCLogger" />
         </Logger>
         <Root level="INFO">
             <AppenderRef ref="ConsoleLogger" />
             <AppenderRef ref="FileLogger" />
+            <AppenderRef ref="JDBCLogger" />
         </Root>
     </Loggers>
 </Configuration>
