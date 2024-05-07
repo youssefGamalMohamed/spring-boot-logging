@@ -8,9 +8,22 @@
         <Console name="ConsoleLogger" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${LOG_PATTERN}" />
         </Console>
+
+        <!--
+
+            folder structure will be like this
+            /Downloads
+                file -> today_logs.log
+                folder -> 2024-01
+                            log.18-Jan-1.log -> 1 represent the first file in 18-Apr Day
+                            log.18-Jan-2.log -> 2 represent the second file in 18-Apr Day
+
+
+        -->
         <RollingFile name="FileLogger"
                      fileName="${LOG_PATH}/today_log.log"
                      filePattern="${LOG_PATH}/%d{YYYY-MM}/log.%d{dd-MMM}-%i.log">
+
             <PatternLayout pattern="${LOG_PATTERN}" />
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB" /> <!-- if the file size exceed 19500KB then it will create new file -->
